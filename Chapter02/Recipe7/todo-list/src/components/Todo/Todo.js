@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import uuidv4 from 'uuid/v4';
+import uuidv4 from 'uuid'
 import List from './List';
 import './Todo.css';
 
@@ -7,7 +7,7 @@ class Todo extends Component {
   constructor() {
     super();
 
-    // Initial state...
+    // Initial State
     this.state = {
       task: '',
       items: []
@@ -20,17 +20,17 @@ class Todo extends Component {
       items: [
         {
           id: uuidv4(),
-          task: 'Default Task 1',
+          task: 'Pay the rent',
           completed: false
         },
         {
           id: uuidv4(),
-          task: 'Default Task 2',
-          completed: true
+          task: 'Go to the gym',
+          completed: false
         },
         {
           id: uuidv4(),
-          task: 'Default Task 3',
+          task: 'Do my homework',
           completed: false
         }
       ]
@@ -50,7 +50,8 @@ class Todo extends Component {
     // Prevent default to avoid the actual form submit...
     e.preventDefault();
 
-    // Once is submited we reset the task value and we push the new task to the items array.
+    // Once is submited, we reset the task value and we push
+    // the new task to the items array
     this.setState({
       task: '',
       items: [
@@ -58,31 +59,35 @@ class Todo extends Component {
         {
           id: uuidv4(),
           task: this.state.task,
-          complete: false
+          completed: false
         }
       ]
     });
   }
 
   markAsCompleted = id => {
-    // Finding the task by id...
-    const foundTask = this.state.items.find(task => task.id === id);
+    // Find the task by id...
+    const foundTask = [
+      this.state.items.find(task => task.id === id)
+    ]
+    console.log("This is the foundTask: ", foundTask);
 
     // Updating the completed status...
-    foundTask.completed = true;
+    foundTask[0].completed = true;
 
     // Updating the state with the new updated task...
     this.setState({
       items: [
         ...this.state.items,
-        ...foundTask
       ]
     });
   }
 
   removeTask = id => {
     // Filtering the tasks by removing the specific task id...
-    const filteredTasks = this.state.items.filter(task => task.id !== id);
+    const filteredTasks = this.state.items.filter(
+      task => task.id !== id
+    );
 
     // Updating items state...
     this.setState({
@@ -96,14 +101,17 @@ class Todo extends Component {
         <h1>New Task:</h1>
 
         <form onSubmit={this.handleOnSubmit}>
-          <input value={this.state.task} onChange={this.handleOnChange} />
+          <input
+            value={this.state.task}
+            onChange={this.handleOnChange}
+          />
         </form>
 
-         <List
-           items={this.state.items}
-           markAsCompleted={this.markAsCompleted}
-           removeTask={this.removeTask}
-         />
+        <List
+          items={this.state.items}
+          markAsCompleted={this.markAsCompleted}
+          removeTask={this.removeTask}
+        />
       </div>
     );
   }
