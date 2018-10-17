@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import uuidv4 from 'uuid'
+import uuidv4 from 'uuid';
 import List from './List';
 import './Todo.css';
 
@@ -67,13 +67,10 @@ class Todo extends Component {
 
   markAsCompleted = id => {
     // Find the task by id...
-    const foundTask = [
-      this.state.items.find(task => task.id === id)
-    ]
-    console.log("This is the foundTask: ", foundTask);
+    const foundTask = this.state.items.find(task => task.id === id)
 
     // Updating the completed status...
-    foundTask[0].completed = true;
+    foundTask.completed = true;
 
     // Updating the state with the new updated task...
     this.setState({
